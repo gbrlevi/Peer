@@ -22,26 +22,29 @@ public class PeerApplication {
         int port = scanner.nextInt();
         scanner.nextLine(); // consumir a nova linha pendente
 
-        //Iniciar o Peer
-        Peer peer = new Peer(userName,port);
-        peer.start();
-
-
         //perguntar se deseja conectar a outro peer
         System.out.println("Deseja conectr a outro peer? (S/N)");
         String resposta = scanner.nextLine();
 
+        String peerhost = null;
+        int peerPort = 0;
+
         if (resposta.equalsIgnoreCase("s")){
             System.out.println("Digite o endereço do novo peer (host): ");
-            String peerhost = scanner.nextLine();
+            peerhost = scanner.nextLine();
 
             System.out.println("Digite a porta do peer : ");
-            int peerPort = scanner.nextInt();
+            peerPort = scanner.nextInt();
             scanner.nextLine();
+        }
 
+        //Iniciar o Peer
+        Peer peer = new Peer(userName,port);
+        peer.start();
+
+        if (peerhost != null){
             peer.connectionToPeer(peerhost,peerPort);
         }
-        scanner.close();
 
     }
 
